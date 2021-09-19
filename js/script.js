@@ -16,9 +16,17 @@ const placeholder = function (word) {
     wordInProgress.innerText = placeholderLetters.join("");
 };
 
+placeholder(word);
+
 guessButtonElement.addEventListener("click",function (e) {
-    e.preventDefault();
+    e.preventDefault()
+    message.innerText = "";
     const guess = letterInput.value;
-    console.log(guess);
+    const goodGuess = validateInput(guess);
+
+    if (goodGuess) {
+        makeGuess(guess);
+    }
     letterInput.value = "";
 });
+
