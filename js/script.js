@@ -51,12 +51,32 @@ const updateWordInProgress = function (guessedLetters) {
         }
         }
     }
+
 wordInProgress.innerText = revealWord.join("");
 checkIfWin();
 
+const updateGuessesRemaining = function (guess) {
+    const upperWord = word.toUpperCase();
+  if (!upperWord.includes(guess)) {
+      message.innerText = 'Sorry, the word has no ${guess}.';
+      remainingGuessesElement -=1;
+  } else {
+      message.innerText = `Good guess! The word has the letter ${guess}.`;
+  }
+}
+
+if (remainingGuesses === 0) {
+    message.innerHTML = `Game over! The word was <span class="highlight">${word}</span>`;
+} else if (remainingGuesses ===1) {
+    remainingGuessesElement.innerText = `${remainingGuesses} guess`;
+} else {
+    remainingGuessesElement.innerText = `${remainingGuesses} guesses`;
+}
+
 const checkIfWin = function () {
-    if (word.toUpperCase () === wordInProgress.innerText) {
+    if (word.toUpperCase() === wordInProgress.innerText) {
         message.classList.add("win");
-        message.innerHTML = '<p class="highlight">You guessed correct the word! Congrats!</p>'
+        message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`; 
     }
-};
+}
+
