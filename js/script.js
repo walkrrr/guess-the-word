@@ -7,6 +7,8 @@ const emptyParagraph = document.querySelector(".empty-paragraph");
 const hiddenButton = document.querySelector(".play-again");
 const word = "magnolia";
 
+
+
 const placeholder = function (word) {
     const placeholderLetters = [];
     for (const letter of word) {
@@ -16,7 +18,15 @@ const placeholder = function (word) {
     wordInProgress.innerText = placeholderLetters.join("");
 };
 
-placeholder(word);
+const getWord = async function () {
+    const response = await fetch("https://gist.githubusercontent.com/skillcrush-curriculum/7061f1d4d3d5bfe47efbfbcfe42bf57e/raw/5ffc447694486e7dea686f34a6c085ae371b43fe/words.txt");
+    const words = await response.text();
+    const wordArray = words.split("\n");
+    const randomIndex = Math.floor(Math.random() * wordArray.length);
+    word = wordArray[randomIndex].trim();
+    placeholder(word);
+
+    getWord();
 
 guessButtonElement.addEventListener("click",function (e) {
     e.preventDefault()
@@ -79,4 +89,4 @@ const checkIfWin = function () {
         message.innerHTML = `<p class="highlight">You guessed the correct word! Congrats!</p>`; 
     }
 }
-
+};
