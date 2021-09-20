@@ -30,3 +30,25 @@ guessButtonElement.addEventListener("click",function (e) {
     letterInput.value = "";
 });
 
+const validateInput = function (input) {
+    const acceptedLetter = /[a-zA-z]/;
+    if (input.length === 0) {
+        message.innerText = "Please enter a letter.";
+    } else if (input.length > 1) {
+        message.innerText = "Please enter a single letter.";
+    } else if (!input.match(acceptedLetter)) {
+        message.innerText = "Please enter a letter from A to Z.";
+    } else {
+        return input;
+    }
+};
+
+
+const makeGuess = function (guess) {
+    guess = guess.toUpperCase();
+    if (guessedLettersElement.includes(guess)) {
+      message.innerText = "You already guessed letter, already. Try again :)"  
+    } else {
+        guessedLettersElement.push(guess);
+        console.log(guessedLetters);
+    }
